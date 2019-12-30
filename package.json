@@ -25,7 +25,8 @@
   "homepage": "https://github.com/tool3/bump#readme",
   "dependencies": {
     "@actions/core": "^1.1.1",
-    "@actions/exec": "^1.0.2"
+    "@actions/exec": "^1.0.2",
+    "@actions/github": "^2.0.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.5",
