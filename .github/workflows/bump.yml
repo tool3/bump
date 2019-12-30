@@ -1,15 +1,14 @@
-name: test
+name: bump
 
 on: [push]
 
 jobs:
-  version_tag:
+  bump:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-node@v1
     - uses: tool3/bump@master
-    - name: bump dev
     - run: 'echo Hello'
       with:
         github_token: ${{ secrets.GP_TOKEN }}
