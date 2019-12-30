@@ -15,11 +15,11 @@ async function run() {
     const context = github.context;
     console.log(context);
     const { repository: { git_url }, sender: { login } } = github.context.payload;
-    core.setOutput(user)
-    core.setOutput(email)
-    core.setOutput(token)
-    core.setOutput(git_url)
-    core.setOutput(`${context}`);
+    core.setOutput('user', user)
+    core.setOutput('email', email)
+    core.setOutput('token', token)
+    core.setOutput('git_url', git_url)
+    core.setOutput('context', context);
     core.setOutput(`from ${login}`)
 
   }
