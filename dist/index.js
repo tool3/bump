@@ -504,12 +504,12 @@ async function run() {
     const context = github.context;
     console.log(context);
     const { repository: { git_url }, sender: { login } } = github.context.payload;
-    core.setOutput('user', user)
-    core.setOutput('email', email)
-    core.setOutput('token', token)
-    core.setOutput('git_url', git_url)
-    core.setOutput('context', context);
-    core.setOutput(`from ${login}`)
+    console.log('email', email);
+    console.log('user', user);
+    console.log('token', token);
+    console.log('git_url', git_url);
+    console.log('context', context);
+    console.log(`from ${login}`);
 
   }
   catch (error) {
