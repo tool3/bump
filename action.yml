@@ -15,7 +15,7 @@ outputs:
     description: 'The version being tagged and pushed'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'index.js'
 
 
 

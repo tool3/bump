@@ -13,6 +13,7 @@ async function run() {
     core.setOutput(version);
     core.setOutput(user);
     core.setOutput(email);
+    core.setOutput(token);
   } 
   catch (error) {
     core.setFailed(error.message);
