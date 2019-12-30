@@ -1,6 +1,7 @@
 const core = require('@actions/core');
-const exec = require('@actions/exec');
+// const exec = require('@actions/exec');
 const github = require('@actions/github');
+
 async function run() {
   try { 
     const user = core.getInput('user');
@@ -13,8 +14,12 @@ async function run() {
     // exec.exec('npm version --no-commit-hooks patch --dry-run');
     const context = github.context;
     console.log(context);
-    core.setOutput(`Context:\n${context}`);
-    core.setOutput(version);
+    const { repository: { git_url }} = github.context;
+    core.setOutput(user)
+    core.setOutput(email)
+    core.setOutput(token)
+    core.setOutput(git_url)
+    core.setOutput(`${context}`);
   
   } 
   catch (error) {

@@ -6,10 +6,9 @@ jobs:
   bump:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
     - uses: actions/setup-node@v1
-    - run: 'echo Hello'
     - uses: tool3/bump@master
+    - runs: 'npm -v'
       with:
         github_token: ${{ secrets.GP_TOKEN }}
         user: 'tal hayut'
