@@ -1,5 +1,7 @@
 name: 'Bump'
 description: 'Bump a version and update package.json'
+uses: actions/setup-node@v1
+  - run: 'npm -v'
 inputs:
   user:  
     description: 'the git user to push the package.json version update'
