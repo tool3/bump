@@ -8,8 +8,10 @@ async function run() {
     const token = core.getInput('github_token');
 
     exec.exec('git pull origin master --tags');
-    const version = exec.exec('npm view version .').version;
-    exec.exec('npm version --no-commit-hooks patch');
+    const ver = exec.exec('npm view version .');
+    const version = JSON.stringify(ver).version;
+    exec.exec('npm version --no-commit-hooks patch --dry-run');
+    
     core.setOutput(version);
     core.setOutput(user);
     core.setOutput(email);

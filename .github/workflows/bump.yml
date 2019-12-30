@@ -9,7 +9,6 @@ jobs:
     - uses: actions/checkout@master
     - uses: actions/setup-node@v1
     - run: 'echo Hello'
-    - run: npm ci
     - uses: tool3/bump@master
       with:
         github_token: ${{ secrets.GP_TOKEN }}
