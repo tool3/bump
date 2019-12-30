@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-// const exec = require('@actions/exec');
+const { exec } = require('@actions/exec');
 const github = require('@actions/github');
 
 async function run() {
@@ -8,20 +8,20 @@ async function run() {
     const email = core.getInput('email');
     const token = core.getInput('github_token');
 
-    // exec.exec('git pull origin master --tags');
-    // const ver = exec.exec('npm view version .');
-    // const version = JSON.stringify(ver).version;
-    // exec.exec('npm version --no-commit-hooks patch --dry-run');
+    const package = JSON.stringify(exec.exec('npm view version .'));
+    const version = package.version;
     const context = github.context;
-    console.log(context);
     const { repository: { git_url }, sender: { login } } = github.context.payload;
-    console.log('email', email);
+    exec('git', ['pull', 'origin', 'master', '--tags']);
+    exec('npm', ['version', '--no-commit-hooks', 'patch', '--dry-run']);
     console.log('user', user);
+    console.log('package', package);
+    console.log('version', version);
     console.log('token', token);
+    console.log('email', email);
     console.log('git_url', git_url);
     console.log('context', context);
     console.log(`from ${login}`);
-
   }
   catch (error) {
     core.setFailed(error.message);
