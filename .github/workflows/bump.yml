@@ -8,8 +8,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-node@v1
-    - uses: tool3/bump@master
     - run: 'echo Hello'
+    - uses: tool3/bump@master
       with:
         github_token: ${{ secrets.GP_TOKEN }}
         user: 'tal hayut'
