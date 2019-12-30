@@ -1,18 +1,20 @@
 const core = require('@actions/core');
-const wait = require('./wait');
+const exec = require('@actions/exec');
 
-
-// most @actions toolkit packages have async methods
 async function run() {
   try { 
-    const ms = core.getInput('milliseconds');
-    console.log(`Waiting ${ms} milliseconds ...`)
+    const user = core.getInput('user');
+    const email = core.getInput('email');
+    const token = core.getInput('github_token');
 
-    core.debug((new Date()).toTimeString())
-    wait(parseInt(ms));
-    core.debug((new Date()).toTimeString())
+    exec.exec('git pull origin master --tags');
+    const version = exec.exec('npm view version .').version;
+    exec.exec('npm version --no-commit-hooks patch');
+    core.setOutput(version);
+    core.setOutput(user);
+    core.setOutput(email);
+    core.setOutput(token);
 
-    core.setOutput('time', new Date().toTimeString());
   } 
   catch (error) {
     core.setFailed(error.message);

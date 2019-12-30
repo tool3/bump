@@ -1,13 +1,24 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Bump'
+description: 'Bump a version and update package.json'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  user:  
+    description: 'the git user to push the package.json version update'
     required: true
-    default: '1000'
+  email:  
+    description: 'the git email to push the package.json version update'
+    required: true
+  github_token: 
+    description: 'the github access token'
+    required: true
 outputs:
-  time: # output will be available to future steps 
-    description: 'The message to output'
+  version: # output will be available to future steps 
+    description: 'The version being tagged and pushed'
 runs:
   using: 'node12'
   main: 'dist/index.js'
+
+
+
+
+  #       git pull origin master --tags
+  #       npm version --no-commit-hooks patch
