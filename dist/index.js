@@ -492,7 +492,7 @@ const core = __webpack_require__(470);
 const github = __webpack_require__(469);
 
 async function run() {
-  try { 
+  try {
     const user = core.getInput('user');
     const email = core.getInput('email');
     const token = core.getInput('github_token');
@@ -503,14 +503,15 @@ async function run() {
     // exec.exec('npm version --no-commit-hooks patch --dry-run');
     const context = github.context;
     console.log(context);
-    const { repository: { git_url }} = github.context;
+    const { repository: { git_url }, sender: { login } } = github.context.payload;
     core.setOutput(user)
     core.setOutput(email)
     core.setOutput(token)
     core.setOutput(git_url)
     core.setOutput(`${context}`);
-  
-  } 
+    core.setOutput(`from ${login}`)
+
+  }
   catch (error) {
     core.setFailed(error.message);
   }
