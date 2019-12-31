@@ -6,6 +6,7 @@ const { Toolkit } = require('actions-toolkit');
 Toolkit.run(async tools => {
   {
     try {
+    
       const pkg = tools.getPackageJSON();
       const event = tools.context.payload;
       const context = github.context;

@@ -2158,6 +2158,7 @@ const { Toolkit } = __webpack_require__(461);
 Toolkit.run(async tools => {
   {
     try {
+    
       const pkg = tools.getPackageJSON();
       const event = tools.context.payload;
       const context = github.context;
