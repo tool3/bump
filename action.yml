@@ -3,16 +3,14 @@ description: 'Bump a version based on commit message, tag it, and push package.j
 inputs:
   user:  
     description: 'the git user to push the package.json version update'
-    default: 'current git user'
-    required: true
+    required: false
   email:  
     description: 'the git email to push the package.json version update'
-    default: 'current git user email'
-    required: true
+    required: false
   branch:  
     description: 'the git email to push the package.json version update'
     default: 'master'
-    required: true
+    required: false
   github_token: 
     description: 'github access token'
     required: true
