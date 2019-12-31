@@ -2177,7 +2177,7 @@ Toolkit.run(async tools => {
       exec('git', ['config', '--local', 'user.name', name]);
       exec('git', ['config', '--local', 'user.email', email]);
       exec('git', ['pull', 'origin', 'master', '--tags']);
-      exec('npm', ['version', '--no-commit-hooks', strategy, '--dry-run']);
+      exec('npm', ['version', '--no-commit-hooks', strategy.replace('#', ''), '--dry-run']);
 
       console.log(pkg.version);
       console.log(event);
