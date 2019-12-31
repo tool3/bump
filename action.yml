@@ -1,4 +1,4 @@
-name: 'Bump'
+name: 'Bump Action'
 description: 'Bump a version based on commit message, tag it, and push package.json update to repository'
 inputs:
   user:  
@@ -22,7 +22,8 @@ outputs:
 runs:
   using: 'node12'
   main: 'dist/index.js'
-
+icon: package
+color: red
 
 
 
