@@ -2167,11 +2167,17 @@ Toolkit.run(async tools => {
       // get context
       const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
 
+      // commit message has version regex
+      const reg = new RegExp(/(?<=^v?|\sv?)(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-(?:[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*)(?:\.(?:[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*))*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?(?=$|\s)/ig);
+      if (reg.test(message)) {
+        core.warning(`build loop safeguard - not running because commit message has a version in it`)
+      }
+
       // get input credentials
       const inputUser = core.getInput('user');
       const inputEmail = core.getInput('email');
       const inputBranch = core.getInput('branch');
-      
+
       const userName = inputUser || name;
       const userEmail = inputEmail || email;
 

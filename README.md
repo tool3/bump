@@ -47,15 +47,7 @@ bump:
       user: 'First Last'
       email: 'user.email@gmail.com'
 ```
-- this action pushes the package.json version update back to the repo (defaults to master).   
-You must be aware of this to avoid build loops. a safe way to do that is to avoid `on: [push]`.   
-Example:
-```yaml
-on:
-  push:
-    branches:
-    - release
-```
+- this action pushes the package.json version update back to the repo (defaults to master). There is a safeguard in place which checks for the existance of a version in the commit message. If so, this action will not run - to avoid build loop.
 
 
 See the [actions tab](https://github.com/tool3/bump/actions) for runs of this action! :rocket:
