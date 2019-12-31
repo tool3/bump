@@ -2170,7 +2170,7 @@ Toolkit.run(async tools => {
       // commit message has version regex
       const reg = new RegExp(/(?<=^v?|\sv?)(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-(?:[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*)(?:\.(?:[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*))*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?(?=$|\s)/ig);
       if (reg.test(message)) {
-        core.warning(`build loop safeguard - not running because commit message has a version in it`)
+        return core.warning(`build loop safeguard - not running because commit message has a version in it`)
       }
 
       // get input credentials
@@ -2185,7 +2185,7 @@ Toolkit.run(async tools => {
       const strategy = defaultStrategy.replace('#', '');
 
       tools.log(`running with ${userName} ${userName} and bumping strategy ${strategy}`);
-      tools.logs(`branch is ${inputBranch}`);
+      tools.log(`branch is ${inputBranch}`);
       // git login and pull
       exec('git', ['config', '--local', 'user.name', userName]);
       exec('git', ['config', '--local', 'user.email', userEmail]);
