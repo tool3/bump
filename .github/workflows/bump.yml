@@ -1,9 +1,6 @@
 name: bump
 
-on:
-  push:
-    branches:
-    - master
+on: [push]
 
 jobs:
   bump:
