@@ -1,5 +1,5 @@
 name: 'Bump'
-description: 'Bump a version and update package.json'
+description: 'Bump a version based on commit message, tag it, and push package.json update to repository'
 inputs:
   user:  
     description: 'the git user to push the package.json version update'
@@ -14,7 +14,7 @@ inputs:
     default: 'master'
     required: true
   github_token: 
-    description: 'the github access token'
+    description: 'github access token'
     required: true
 outputs:
   version: # output will be available to future steps 
