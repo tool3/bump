@@ -1,6 +1,8 @@
 name: bump
 
-on: [push]
+on:
+  branches:
+    - release
 
 jobs:
   bump:

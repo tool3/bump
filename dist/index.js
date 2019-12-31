@@ -2164,19 +2164,25 @@ const STRATEGIES = [
 Toolkit.run(async tools => {
   {
     try {
+      // get context
+      const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
+
       // get input credentials
       const inputUser = core.getInput('user');
       const inputEmail = core.getInput('email');
       const inputBranch = core.getInput('branch');
+      
+      const userName = inputUser || name;
+      const userEmail = inputEmail || email;
 
-      const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
+      const defaultStrategy = STRATEGIES.filter(strat => message.includes(strat))[0] || STRATEGIES[0];
+      const strategy = defaultStrategy.replace('#', '');
 
-      const strategy = STRATEGIES.filter(strat => message.includes(strat))[0].replace('#', '') || "patch";
-      console.log('strategy is: ', strategy);
-
+      tools.log(`running with ${userName} ${userName} and bumping strategy ${strategy}`);
+      tools.logs(`branch is ${inputBranch}`);
       // git login and pull
-      exec('git', ['config', '--local', 'user.name', inputUser || name]);
-      exec('git', ['config', '--local', 'user.email', inputEmail || email]);
+      exec('git', ['config', '--local', 'user.name', userName]);
+      exec('git', ['config', '--local', 'user.email', userEmail]);
       exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
       // version by strategy
@@ -2190,7 +2196,6 @@ Toolkit.run(async tools => {
       core.setFailed(error.message);
     }
   }
-
 });
 
 /***/ }),

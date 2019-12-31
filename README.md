@@ -8,13 +8,13 @@ Click the `Use this Template` and provide the new repo details for your action
 
 
 # Options
-inputs: 
-- github_token (required) - github access token.
+### inputs: 
+- *github_token* (required) - github access token.
 - user (optional) - user name (default: the user of the current push).
 - email (optional) - user email. (default: current user email).
 - branch (optional) - branch to work against. (default: `master`).
 
-outputs:
+### outputs:
 - version - the version being tagged and pushed.
 
 # Bump strategy
@@ -48,7 +48,13 @@ bump:
       email: 'user.email@gmail.com'
 ```
 - this action pushes the package.json version update back to the repo (defaults to master).   
-You must be aware of this to avoid build loops.
+You must be aware of this to avoid build loops. a safe way to do that is to avoid `on: [push]`.   
+Example:
+```yaml
+on:
+  branches:
+    - release
+```
 
 
 See the [actions tab](https://github.com/tool3/bump/actions) for runs of this action! :rocket:
