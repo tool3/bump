@@ -3,9 +3,15 @@ description: 'Bump a version and update package.json'
 inputs:
   user:  
     description: 'the git user to push the package.json version update'
+    default: 'current git user'
     required: true
   email:  
     description: 'the git email to push the package.json version update'
+    default: 'current git user email'
+    required: true
+  branch:  
+    description: 'the git email to push the package.json version update'
+    default: 'master'
     required: true
   github_token: 
     description: 'the github access token'
