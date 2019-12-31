@@ -2184,18 +2184,19 @@ Toolkit.run(async tools => {
       const defaultStrategy = STRATEGIES.filter(strat => message.includes(strat))[0] || STRATEGIES[0];
       const strategy = defaultStrategy.replace('#', '');
 
-      tools.log(`running with ${userName} ${userName} and bumping strategy ${strategy}`);
+      tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
       tools.log(`branch is ${inputBranch}`);
+
       // git login and pull
       exec('git', ['config', '--local', 'user.name', userName]);
       exec('git', ['config', '--local', 'user.email', userEmail]);
       exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
       // version by strategy
-      exec('npm', ['version', '--no-commit-hooks', strategy, '--dry-run']);
+      exec('npm', ['version', '--no-commit-hooks', strategy]);
 
       // push new version and tag
-      exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags', '--dry-run'])
+      exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
     }
     catch (error) {

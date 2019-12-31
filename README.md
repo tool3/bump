@@ -30,7 +30,7 @@ bump:
   steps:
   - uses: tool3/bump@master
     with:
-      github_token: ${{ secrets.GP_TOKEN }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}
       user: 'First Last'
       email: 'user.email@gmail.com'
 ```
@@ -43,7 +43,7 @@ bump:
   - uses: actions/checkout@master
   - uses: tool3/bump@master
     with:
-      github_token: ${{ secrets.GP_TOKEN }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}
       user: 'First Last'
       email: 'user.email@gmail.com'
 ```
