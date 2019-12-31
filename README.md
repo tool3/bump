@@ -28,7 +28,7 @@ You can consume the action by referencing the v1 branch
 bump:
   runs-on: ubuntu-latest
   steps:
-  - uses: tool3/bump@master
+  - uses: tool3/bump@v1
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       user: 'First Last'
@@ -41,7 +41,7 @@ bump:
   runs-on: ubuntu-latest
   steps:
   - uses: actions/checkout@master
-  - uses: tool3/bump@master
+  - uses: tool3/bump@v1
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       user: 'First Last'
