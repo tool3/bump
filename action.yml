@@ -22,10 +22,6 @@ outputs:
 runs:
   using: 'node12'
   main: 'dist/index.js'
-icon: package
-color: red
-
-
-
-  #       git pull origin master --tags
-  #       npm version --no-commit-hooks patch
+branding:
+  icon: 'package'  
+  color: 'red'
