@@ -2187,7 +2187,7 @@ Toolkit.run(async tools => {
       exec('npm', ['version', '--no-commit-hooks', strategy, '--dry-run']);
       // /git push "${remote_repo}" HEAD:${INPUT_BRANCH} --follow-tags $_FORCE_OPTION;
 
-      exec('git', ['push', 'origin', `HEAD:${branch}`, '--tags', '--dry-run'])
+      exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags', '--dry-run'])
 
       console.log(pkg.version);
       console.log(event);
