@@ -2155,6 +2155,12 @@ const { exec } = __webpack_require__(986);
 const github = __webpack_require__(469);
 const { Toolkit } = __webpack_require__(461);
 
+const STRATEGIES = [
+  '#patch',
+  '#minor',
+  '#major'
+];
+
 Toolkit.run(async tools => {
   {
     try {
@@ -2163,14 +2169,17 @@ Toolkit.run(async tools => {
       const event = tools.context.payload;
       const context = github.context;
 
-      const { repository: { git_url }, sender: { login }, pusher: { email, name } } = github.context.payload;
-      // exec('git', ['pull', 'origin', 'master', '--tags']);s
+      const { repository: { git_url }, sender: { login }, pusher: { email, name }, head_commit: { message } } = github.context.payload;
+
+      const strategy = STRATEGIES.filter(strat => message.includes(strat))[0] || "#patch";
+      console.log('strategy is: ', strategy);
+
       exec('git', ['config', '--local', 'user.name', name]);
       exec('git', ['config', '--local', 'user.email', email]);
-      exec('npm', ['version', '--no-commit-hooks', 'patch', '--dry-run']);
-      exec('git', ['version', '--no-commit-hooks', 'patch', '--dry-run']);
+      exec('git', ['pull', 'origin', 'master', '--tags']);
+      exec('npm', ['version', '--no-commit-hooks', strategy, '--dry-run']);
 
-      console.log(pkg);
+      console.log(pkg.version);
       console.log(event);
       console.log(login);
       console.log('git_url', git_url);
