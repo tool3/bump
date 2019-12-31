@@ -52,7 +52,8 @@ You must be aware of this to avoid build loops. a safe way to do that is to avoi
 Example:
 ```yaml
 on:
-  branches:
+  push:
+    branches:
     - release
 ```
 
