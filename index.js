@@ -18,7 +18,7 @@ Toolkit.run(async tools => {
       // commit message has version regex
       const reg = new RegExp(/(?<=^v?|\sv?)(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-(?:[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*)(?:\.(?:[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*))*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?(?=$|\s)/ig);
       if (reg.test(message)) {
-        return core.warning(`build loop safeguard - not running because commit message has a version in it`)
+        return core.warning(`build loop safeguard - not running because commit message has a version in it`);
       }
 
       // get input credentials
@@ -36,19 +36,20 @@ Toolkit.run(async tools => {
       tools.log(`branch is ${inputBranch}`);
 
       // git login and pull
-      exec('git', ['config', '--local', 'user.name', userName]);
-      exec('git', ['config', '--local', 'user.email', userEmail]);
-      exec('git', ['pull', 'origin', inputBranch, '--tags']);
+      await exec('git', ['config', '--local', 'user.name', userName]);
+      await exec('git', ['config', '--local', 'user.email', userEmail]);
+      await exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
       // version by strategy
-      exec('npm', ['version', '--no-commit-hooks', strategy]);
+      await exec('npm', ['version', '--no-commit-hooks', strategy]);
 
       // push new version and tag
-      exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
+      await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
     }
     catch (error) {
       core.setFailed(error.message);
+
     }
   }
 });
