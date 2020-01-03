@@ -45,7 +45,7 @@ Toolkit.run(async tools => {
       const commitMessage = await exec('git', ['log', '-1', '--pretty=%B']);
       tools.log('commitMsg', commitMessage);
       // version by strategy
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '--dry-run']);
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', '$(git log -1 --pretty=%B)', '--dry-run']);
 
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags', '--dry-run'])
