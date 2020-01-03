@@ -31,23 +31,22 @@ Toolkit.run(async tools => {
 
       const defaultStrategy = STRATEGIES.filter(strat => message.includes(strat))[0] || STRATEGIES[0];
       const strategy = defaultStrategy.replace('#', '');
+      const commitMessage = message.replace(defaultStrategy, '');
 
+      tools.log(`Latest commit message: ${commitMessage}`);
       tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
-      tools.log(`branch is ${inputBranch}`);
+      tools.log(`Branch is ${inputBranch}`);
 
       // git login and pull
       await exec('git', ['config', '--local', 'user.name', userName]);
       await exec('git', ['config', '--local', 'user.email', userEmail]);
       await exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
-      // latest commit message minus the strategy
-      const commitMessage = message.replace(defaultStrategy, '');
-      tools.log(commitMessage);
       // version by strategy
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `'${commitMessage}'` , '--dry-run']);
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `'${commitMessage} %s'`]);
 
       // push new version and tag
-      await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags', '--dry-run'])
+      await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
     }
     catch (error) {
