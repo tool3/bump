@@ -2195,7 +2195,7 @@ Toolkit.run(async tools => {
       await exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
       // version by strategy
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `'${commitMessage} %s'`]);
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `"${commitMessage} %s"`]);
 
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
