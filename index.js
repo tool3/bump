@@ -41,9 +41,9 @@ Toolkit.run(async tools => {
       await exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
       // get latest commit msg
-      // git log --oneline -n 1 | cut -d ' ' -f 2
-      const commitMessage = await exec('git', ['log', '--oneline', '-n', '1']);
-      tools.log(commitMessage);
+      // git log -1 --pretty=%B
+      const commitMessage = await exec('git', ['log', '-1', '--pretty=%B']);
+      tools.log('commitMsg', commitMessage);
       // version by strategy
       await exec('npm', ['version', strategy, '--no-commit-hooks', '--dry-run']);
 
