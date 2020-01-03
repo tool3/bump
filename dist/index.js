@@ -2192,8 +2192,11 @@ Toolkit.run(async tools => {
       await exec('git', ['config', '--local', 'user.email', userEmail]);
       await exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
+      // latest commit message minus the strategy
+      const commitMessage = message.replace(defaultStrategy, '');
+      tools.log(commitMessage);
       // version by strategy
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', message.replace(defaultStrategy, '') , '--dry-run']);
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `'${commitMessage}'` , '--dry-run']);
 
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags', '--dry-run'])
