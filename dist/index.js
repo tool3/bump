@@ -2192,11 +2192,15 @@ Toolkit.run(async tools => {
       await exec('git', ['config', '--local', 'user.email', userEmail]);
       await exec('git', ['pull', 'origin', inputBranch, '--tags']);
 
+      // get latest commit msg
+      // git log --oneline -n 1 | cut -d ' ' -f 2
+      const commitMessage = await exec('git', ['log', '--oneline', '-n', '1']);
+      tools.log(commitMessage);
       // version by strategy
-      await exec('npm', ['version', strategy, '--no-commit-hooks']);
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '--dry-run']);
 
       // push new version and tag
-      await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
+      await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags', '--dry-run'])
 
     }
     catch (error) {
