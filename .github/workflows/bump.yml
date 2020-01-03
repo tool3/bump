@@ -10,5 +10,3 @@ jobs:
     - uses: tool3/bump@master
       with:
         github_token: ${{ secrets.GP_TOKEN }}
-        user: 'Tal hayut'
-        email: 'tal.dev@gmail.com'
