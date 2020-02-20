@@ -38,10 +38,16 @@ Toolkit.run(async tools => {
       tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
       tools.log(`Branch is ${inputBranch}`);
 
+
       // git login and pull
+      const pullArgs = ['pull', 'origin', inputBranch, '--tags'];
+      if (unrelated) {
+        pullArgs.push('--allow-unrelated-histories');
+      }
+
       await exec('git', ['config', '--local', 'user.name', userName]);
       await exec('git', ['config', '--local', 'user.email', userEmail]);
-      await exec('git', ['pull', 'origin', inputBranch, '--tags', `--allow-unrelated-histories=${unrelated}`]);
+      await exec('git', pullArgs);
 
       // version by strategy
       await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
