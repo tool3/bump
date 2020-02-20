@@ -25,6 +25,7 @@ Toolkit.run(async tools => {
       const inputUser = core.getInput('user');
       const inputEmail = core.getInput('email');
       const inputBranch = core.getInput('branch');
+      const unrelated = core.getInput('unrelated');
 
       const userName = inputUser || name;
       const userEmail = inputEmail || email;
@@ -40,7 +41,7 @@ Toolkit.run(async tools => {
       // git login and pull
       await exec('git', ['config', '--local', 'user.name', userName]);
       await exec('git', ['config', '--local', 'user.email', userEmail]);
-      await exec('git', ['pull', 'origin', inputBranch, '--tags']);
+      await exec('git', ['pull', 'origin', inputBranch, '--tags', `--allow-unrelated-histories=${unrelated}`]);
 
       // version by strategy
       await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);

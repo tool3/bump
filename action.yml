@@ -14,6 +14,10 @@ inputs:
   github_token: 
     description: 'github access token'
     required: true
+  unrelated:
+    description: 'merge unrelated histories'
+    required: false
+    default: false
 outputs:
   version: # output will be available to future steps 
     description: 'The version being tagged and pushed'
