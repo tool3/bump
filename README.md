@@ -51,54 +51,34 @@ bump:
 
 See the [actions tab](https://github.com/tool3/bump/actions) for runs of this action! :rocket:
 
-# Example 
-This is a full example workflow of patching using Bump Action and publishing to github registry and npm.   
+# Example
 ```yaml
 name: release
 
 on:
   push:
     branches:
-    - release
-  
+      - release
+
 jobs:
-  version_tag:
+  tag:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: tool3/bump@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-  
-  publish-npm:
-    needs: version_tag
+      - uses: actions/checkout@master
+      - uses: tool3/bump@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          unrelated: true
+
+  publisher:
+    needs: tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: tool3/publisher@v1
         with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-          scope: '@username'
-      - run: npm ci
-      - run: git pull origin master --tags
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-  
-  publish-gpr:
-    needs: version_tag
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-        registry-url: https://npm.pkg.github.com/
-        scope: '@username'
-    - run: npm ci
-    - run: git pull origin master --tags
-    - run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          npm_token: ${{ secrets.NPM_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          scope: "@tool3"
+
 ```
