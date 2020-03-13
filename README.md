@@ -8,14 +8,25 @@ Click the `Use this Template` and provide the new repo details for your action
 
 
 # Options
-### inputs: 
-- *github_token* (required) - github access token.
-- user (optional) - user name (default: the user of the current push).
-- email (optional) - user email. (default: current user email).
-- branch (optional) - branch to work against. (default: `master`).
-
-### outputs:
-- version - the version being tagged and pushed.
+## inputs:
+### `github_token`
+**required**   
+github access token
+### `user`
+user name   
+default: the user of the current push)   
+### `email`
+user email   
+default: current user email   
+### `branch`
+branch to work against   
+default: `master`  
+### `unrelated`
+use `--allow-unrelated-histories`
+deafult: `false`
+## outputs:
+### `version`
+the version being tagged and pushed.
 
 # Bump strategy
 If your head (latest) commit has the keywords `#patch`, `#minor` or `#major` - this action will use that to perform the bump.
