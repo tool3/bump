@@ -2172,6 +2172,7 @@ Toolkit.run(async tools => {
       const inputEmail = core.getInput('email');
       const inputBranch = core.getInput('branch');
       const unrelated = core.getInput('unrelated');
+      const packageJson = __webpack_require__(731);
 
       const userName = inputUser || name;
       const userEmail = inputEmail || email;
@@ -2196,15 +2197,16 @@ Toolkit.run(async tools => {
       await exec('git', pullArgs);
 
       // version by strategy
-      let version = '';
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdline: (data) => version = data });
-      core.info(`version is ${version}`);
+      
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
+
+      core.info(`version is ${packageJson.version}`);
       
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
       // set output version
-      core.setOutput('version', version);
+      core.setOutput('version', packageJson.version);
     }
     catch (error) {
       core.setFailed(error.message);
@@ -20483,7 +20485,12 @@ module.exports = new Schema({
 /* 728 */,
 /* 729 */,
 /* 730 */,
-/* 731 */,
+/* 731 */
+/***/ (function(module) {
+
+module.exports = {"name":"bump","version":"1.0.22","description":"Bump Action","main":"index.js","scripts":{"lint":"eslint index.js","package":"ncc build index.js -o dist","test":"eslint index.js && jest","build":"ncc build index.js"},"repository":{"type":"git","url":"git+git@github.com:tool3/bump.git"},"keywords":["GitHub","Actions","JavaScript"],"author":"Tal Hayut","license":"MIT","bugs":{"url":"https://github.com/tool3/bump/issues"},"homepage":"https://github.com/tool3/bump#readme","dependencies":{"@actions/core":"^1.1.1","@actions/exec":"^1.0.2","@actions/github":"^2.0.0","actions-toolkit":"^2.2.0"},"devDependencies":{"@zeit/ncc":"^0.20.5","eslint":"^6.3.0","husky":"^3.1.0","jest":"^24.9.0"},"husky":{"hooks":{"pre-commit":"npm run build && git add ."}}};
+
+/***/ }),
 /* 732 */,
 /* 733 */,
 /* 734 */,

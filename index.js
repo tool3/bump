@@ -20,6 +20,7 @@ Toolkit.run(async tools => {
       const inputEmail = core.getInput('email');
       const inputBranch = core.getInput('branch');
       const unrelated = core.getInput('unrelated');
+      const packageJson = require(`${process.cwd()}/package.json`);
 
       const userName = inputUser || name;
       const userEmail = inputEmail || email;
@@ -44,15 +45,16 @@ Toolkit.run(async tools => {
       await exec('git', pullArgs);
 
       // version by strategy
-      let version = '';
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdline: (data) => version = data });
-      core.info(`version is ${version}`);
+      
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
+
+      core.info(`version is ${packageJson.version}`);
       
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
       // set output version
-      core.setOutput('version', version);
+      core.setOutput('version', packageJson.version);
     }
     catch (error) {
       core.setFailed(error.message);
