@@ -2199,6 +2199,7 @@ Toolkit.run(async tools => {
       let version = '';
       execSync('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdout: (data) => version += data.toString() });
       tools.log(`version is ${version}`);
+      core.info(`version is ${version}`);
       
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])

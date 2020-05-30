@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - id: bump
     - uses: tool3/bump@master
       with:
         github_token: ${{ secrets.GP_TOKEN }}
+    - name: checkout output
+      run: echo "${{ steps.bump.outputs.version }}"
+
+
