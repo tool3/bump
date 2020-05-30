@@ -2199,7 +2199,7 @@ Toolkit.run(async tools => {
       
       await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
 
-      const version = tools.getPackageJSON();
+      const version = tools.getPackageJSON().version;
       core.info(`version is ${version}`);
       
       // push new version and tag
