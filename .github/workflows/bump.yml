@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - id: bump
     - uses: tool3/bump@master
+      id: bump
       with:
         github_token: ${{ secrets.GP_TOKEN }}
     - name: checkout output
