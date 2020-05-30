@@ -2196,13 +2196,13 @@ Toolkit.run(async tools => {
       await exec('git', pullArgs);
 
       // version by strategy
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
-
+      const version = await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
+      console.log(version);
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
       // set output version
-      core.setOutput('version', strategy);
+      core.setOutput('version', version);
     }
     catch (error) {
       core.setFailed(error.message);
