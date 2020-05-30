@@ -47,7 +47,7 @@ Toolkit.run(async tools => {
       
       await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
 
-      const version = require(`${process.cwd()}/package.json`).version;
+      const version = require('./package.json').version;
       core.info(`version is ${version}`);
       
       // push new version and tag
