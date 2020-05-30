@@ -2196,7 +2196,8 @@ Toolkit.run(async tools => {
       await exec('git', pullArgs);
 
       // version by strategy
-      const version = await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
+      let version = '';
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdout: (data) => version += data.toString() });
       console.log(version);
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
