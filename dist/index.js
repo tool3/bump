@@ -2201,6 +2201,8 @@ Toolkit.run(async tools => {
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
+      // set output version
+      core.setOutput('version', strategy);
     }
     catch (error) {
       core.setFailed(error.message);
