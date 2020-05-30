@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const { exec } = require('@actions/exec');
+const { exec, execSync } = require('@actions/exec');
 const github = require('@actions/github');
 const { Toolkit } = require('actions-toolkit');
 
@@ -45,8 +45,9 @@ Toolkit.run(async tools => {
 
       // version by strategy
       let version = '';
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdout: (data) => version += data.toString() });
+      execSync('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdout: (data) => version += data.toString() });
       tools.log(`version is ${version}`);
+      
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 

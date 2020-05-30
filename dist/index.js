@@ -2151,7 +2151,7 @@ module.exports = new Type('tag:yaml.org,2002:set', {
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
-const { exec } = __webpack_require__(986);
+const { exec, execSync } = __webpack_require__(986);
 const github = __webpack_require__(469);
 const { Toolkit } = __webpack_require__(461);
 
@@ -2197,8 +2197,9 @@ Toolkit.run(async tools => {
 
       // version by strategy
       let version = '';
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdout: (data) => version += data.toString() });
+      execSync('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`], { stdout: (data) => version += data.toString() });
       tools.log(`version is ${version}`);
+      
       // push new version and tag
       await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
