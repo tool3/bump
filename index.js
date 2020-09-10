@@ -34,8 +34,6 @@ Toolkit.run(async tools => {
         commitMessage = `${commitMessage}\n\nskip-checks: true`
       }
 
-      console.log(commitMessage)
-
       tools.log(`Latest commit message: ${commitMessage}`);
       tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
       tools.log(`Branch is ${inputBranch}`);
