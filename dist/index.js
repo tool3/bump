@@ -2179,6 +2179,8 @@ Toolkit.run(async tools => {
         commitMessage = `${commitMessage}\n\nskip-checks: true`
       }
 
+      console.log(commitMessage)
+
       const userName = inputUser || name;
       const userEmail = inputEmail || email;
 

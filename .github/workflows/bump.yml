@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: tool3/bump@master
+    - uses: tool3/bump@feat/skip_checks
       id: bump
       with:
         github_token: ${{ secrets.GP_TOKEN }}
