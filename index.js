@@ -15,7 +15,6 @@ Toolkit.run(async tools => {
       // get context
       const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
 
-      let commitMessage = message.replace(defaultStrategy, '');
       // get input credentials
       const inputUser = core.getInput('user');
       const inputEmail = core.getInput('email');
@@ -23,23 +22,23 @@ Toolkit.run(async tools => {
       const unrelated = core.getInput('unrelated');
       const skipChecks = core.getInput('skip-checks');
 
-      if (skipChecks) {
-        commitMessage = `${commitMessage}\n\nskip-checks: true`
-      }
-
-      console.log(commitMessage)
-
       const userName = inputUser || name;
       const userEmail = inputEmail || email;
 
       const defaultStrategy = STRATEGIES.filter(strat => message.includes(strat))[0] || STRATEGIES[0];
       const strategy = defaultStrategy.replace('#', '');
       
+      let commitMessage = message.replace(defaultStrategy, '');
+
+      if (skipChecks) {
+        commitMessage = `${commitMessage}\n\nskip-checks: true`
+      }
+
+      console.log(commitMessage)
 
       tools.log(`Latest commit message: ${commitMessage}`);
       tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
       tools.log(`Branch is ${inputBranch}`);
-
 
       // git login and pull
       const pullArgs = ['pull', 'origin', inputBranch, '--tags'];
