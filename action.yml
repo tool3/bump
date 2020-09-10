@@ -18,6 +18,10 @@ inputs:
     description: 'merge unrelated histories'
     required: false
     default: false
+  skip-checks:
+    description: 'skip github checks'
+    required: false
+    default: false
 outputs:
   version: # output will be available to future steps 
     description: 'The version being tagged and pushed'

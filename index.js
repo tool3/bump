@@ -15,18 +15,24 @@ Toolkit.run(async tools => {
       // get context
       const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
 
+      let commitMessage = message.replace(defaultStrategy, '');
       // get input credentials
       const inputUser = core.getInput('user');
       const inputEmail = core.getInput('email');
       const inputBranch = core.getInput('branch');
       const unrelated = core.getInput('unrelated');
+      const skipChecks = core.getInput('skip-checks');
+
+      if (skipChecks) {
+        commitMessage = `${commitMessage}\n\nskip-checks: true`
+      }
 
       const userName = inputUser || name;
       const userEmail = inputEmail || email;
 
       const defaultStrategy = STRATEGIES.filter(strat => message.includes(strat))[0] || STRATEGIES[0];
       const strategy = defaultStrategy.replace('#', '');
-      const commitMessage = message.replace(defaultStrategy, '');
+      
 
       tools.log(`Latest commit message: ${commitMessage}`);
       tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
