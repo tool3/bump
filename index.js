@@ -50,7 +50,7 @@ Toolkit.run(async tools => {
 
       // version by strategy
       
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
+      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `%s ${commitMessage}`]);
 
       const version = tools.getPackageJSON().version;
       core.info(`version is ${version}`);
