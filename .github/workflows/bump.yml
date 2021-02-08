@@ -11,6 +11,7 @@ jobs:
       id: bump
       with:
         github_token: ${{ secrets.GP_TOKEN }}
+        branch: 'chore/test'
     - name: checkout output
       run: echo "${{ steps.bump.outputs.version }}"
 
