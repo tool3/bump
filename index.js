@@ -13,48 +13,49 @@ Toolkit.run(async tools => {
   {
     try {
       // get context
-      const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
+      console.log(github.content.payload)
+      // const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
 
-      // get input credentials
-      const inputUser = core.getInput('user');
-      const inputEmail = core.getInput('email');
-      const inputBranch = core.getInput('branch');
-      const unrelated = core.getInput('unrelated');
+      // // get input credentials
+      // const inputUser = core.getInput('user');
+      // const inputEmail = core.getInput('email');
+      // const inputBranch = core.getInput('branch');
+      // const unrelated = core.getInput('unrelated');
 
-      const userName = inputUser || name;
-      const userEmail = inputEmail || email;
+      // const userName = inputUser || name;
+      // const userEmail = inputEmail || email;
 
-      const defaultStrategy = STRATEGIES.filter(strat => message.includes(strat))[0] || STRATEGIES[0];
-      const strategy = defaultStrategy.replace('#', '');
-      const commitMessage = message.replace(defaultStrategy, '');
+      // const defaultStrategy = STRATEGIES.filter(strat => message.includes(strat))[0] || STRATEGIES[0];
+      // const strategy = defaultStrategy.replace('#', '');
+      // const commitMessage = message.replace(defaultStrategy, '');
 
-      tools.log(`Latest commit message: ${commitMessage}`);
-      tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
-      tools.log(`Branch is ${inputBranch}`);
+      // tools.log(`Latest commit message: ${commitMessage}`);
+      // tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
+      // tools.log(`Branch is ${inputBranch}`);
 
 
-      // git login and pull
-      const pullArgs = ['pull', 'origin', inputBranch, '--tags'];
-      if (unrelated) {
-        pullArgs.push('--allow-unrelated-histories');
-      }
+      // // git login and pull
+      // const pullArgs = ['pull', 'origin', inputBranch, '--tags'];
+      // if (unrelated) {
+      //   pullArgs.push('--allow-unrelated-histories');
+      // }
 
-      await exec('git', ['config', '--local', 'user.name', userName]);
-      await exec('git', ['config', '--local', 'user.email', userEmail]);
-      await exec('git', pullArgs);
+      // await exec('git', ['config', '--local', 'user.name', userName]);
+      // await exec('git', ['config', '--local', 'user.email', userEmail]);
+      // await exec('git', pullArgs);
 
-      // version by strategy
+      // // version by strategy
       
-      await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
+      // await exec('npm', ['version', strategy, '--no-commit-hooks', '-m', `${commitMessage} %s`]);
 
-      const version = tools.getPackageJSON().version;
-      core.info(`version is ${version}`);
+      // const version = tools.getPackageJSON().version;
+      // core.info(`version is ${version}`);
       
-      // push new version and tag
-      await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
+      // // push new version and tag
+      // await exec('git', ['push', 'origin', `HEAD:${inputBranch}`, '--tags'])
 
-      // set output version
-      core.setOutput('version', version);
+      // // set output version
+      // core.setOutput('version', version);
     }
     catch (error) {
       core.setFailed(error.message);
