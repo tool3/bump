@@ -13,7 +13,7 @@ Toolkit.run(async tools => {
   {
     try {
       // get context
-      console.log(github.content.payload)
+      console.log(github.context.payload)
       // const { pusher: { email, name }, head_commit: { message } } = github.context.payload;
 
       // // get input credentials
