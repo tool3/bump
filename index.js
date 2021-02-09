@@ -14,9 +14,13 @@ Toolkit.run(async tools => {
     try {
       // get context
       const {payload} = github.context;
-      const email = payload.head_commit.committer.email;
-      const username = payload.head_commit.committer.username;
-      const message = payload.head_commit.message;
+      const args = {};
+      if (payload.head_commit) {
+        args.email = payload.head_commit.committer.email;
+        args.username = payload.head_commit.committer.username;
+        args.message = payload.head_commit.message;
+      }
+      
 
       // get input credentials
       const inputUser = core.getInput('user');
@@ -24,8 +28,8 @@ Toolkit.run(async tools => {
       const inputBranch = core.getInput('branch');
       const unrelated = core.getInput('unrelated');
 
-      const userName = inputUser || username;
-      const userEmail = inputEmail || email;
+      const userName = inputUser || args.username;
+      const userEmail = inputEmail || args.email;
 
       if (!userName || !userEmail) {
         const errorMessage = `failed to extract username or email from github context. please provide 'username' and 'email' through the workflow file.`
