@@ -2188,9 +2188,9 @@ Toolkit.run(async tools => {
         return core.setFailed(errorMessage);
       }
 
-      const defaultStrategy = STRATEGIES.filter(strat => args.message.includes(strat))[0] || STRATEGIES[0];
+      const defaultStrategy = STRATEGIES.filter(strat => args.message && args.message.includes(strat))[0] || STRATEGIES[0];
       const strategy = defaultStrategy.replace('#', '');
-      const commitMessage = args.message.replace(defaultStrategy, '');
+      const commitMessage = args.message && args.message.replace(defaultStrategy, '');
 
       tools.log(`Latest commit message: ${commitMessage}`);
       tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
