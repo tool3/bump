@@ -1,6 +1,6 @@
 {
   "name": "bump",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "Bump Action",
   "main": "index.js",
   "scripts": {
