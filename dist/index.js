@@ -2167,12 +2167,12 @@ Toolkit.run(async tools => {
       // get context
       const {payload} = github.context;
       const args = {};
+
       if (payload.head_commit) {
         args.email = payload.head_commit.committer.email;
         args.username = payload.head_commit.committer.username;
         args.message = payload.head_commit.message;
-      }
-      
+      }  
 
       // get input credentials
       const inputUser = core.getInput('user');
@@ -2180,17 +2180,19 @@ Toolkit.run(async tools => {
       const inputBranch = core.getInput('branch');
       const unrelated = core.getInput('unrelated');
 
-      const userName = inputUser || args.username;
-      const userEmail = inputEmail || args.email;
+      const {message, email, username} = args;
+
+      const userName = inputUser || username;
+      const userEmail = inputEmail || email;
 
       if (!userName || !userEmail) {
-        const errorMessage = `failed to extract username or email from github context. please provide 'username' and 'email' through the workflow file.`
+        const errorMessage = `failed to extract username or email from github context, please provide 'username' and 'email' through the workflow file.`
         return core.setFailed(errorMessage);
       }
-
-      const defaultStrategy = STRATEGIES.filter(strat => args.message && args.message.includes(strat))[0] || STRATEGIES[0];
+      
+      const defaultStrategy = STRATEGIES.filter(strat => message && message.includes(strat))[0] || STRATEGIES[0];
       const strategy = defaultStrategy.replace('#', '');
-      const commitMessage = args.message && args.message.replace(defaultStrategy, '');
+      const commitMessage = message && message.replace(defaultStrategy, '');
 
       tools.log(`Latest commit message: ${commitMessage}`);
       tools.log(`Running with ${userName} ${userEmail} and bumping strategy ${strategy}`);
