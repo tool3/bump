@@ -49,13 +49,13 @@ Defaults to `patch`.
 
 ## Usage
 
-You can consume the action by referencing the v1 branch
+You can use this action by referencing any branch or git tag:
 
 ```yaml
 bump:
   runs-on: ubuntu-latest
   steps:
-    - uses: tool3/bump@v1
+    - uses: tool3/bump@master #latest
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         user: "First Last"
@@ -71,7 +71,7 @@ bump:
   runs-on: ubuntu-latest
   steps:
     - uses: actions/checkout@master
-    - uses: tool3/bump@v1
+    - uses: tool3/bump@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         user: "First Last"
@@ -106,8 +106,8 @@ jobs:
     needs: tag
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: tool3/publisher@v1
+      - uses: actions/checkout@v2
+      - uses: tool3/publisher@master
         with:
           npm_token: ${{ secrets.NPM_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
