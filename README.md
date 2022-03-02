@@ -1,7 +1,5 @@
 # Bump Action
 
-### Forked from tool3/bump to check node16 compatibility
-
 Bump allows you to..well...bump an npm package version using a commit message, and push the package.json update back to the repository.  
 [![](https://github.com/tool3/bump/workflows/bump/badge.svg)](https://github.com/tool3/bump/actions)
 
