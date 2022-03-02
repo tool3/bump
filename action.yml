@@ -1,4 +1,4 @@
-name: "Bump Action"
+name: "Bump Action Workflow"
 description: "Bump a version based on commit message, tag it, and push package.json update to repository"
 inputs:
   user:
