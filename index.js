@@ -10,7 +10,7 @@ Toolkit.run(async (tools) => {
     try {
       // get context
       const { payload } = github.context;
-      const args = {};
+      const args = { message: '', email: '', username: '' };
 
       if (payload.head_commit) {
         args.email = payload.head_commit.committer.email;
