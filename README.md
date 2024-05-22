@@ -19,7 +19,7 @@ github access token
 ### `user`
 
 user name  
-default: the user of the current push)
+default: the user of the current push
 
 ### `email`
 
